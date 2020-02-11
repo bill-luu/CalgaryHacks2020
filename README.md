@@ -1,1 +1,1 @@
-# CalgaryHacks2019
+# CalgaryHacks2020
