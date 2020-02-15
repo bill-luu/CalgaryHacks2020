@@ -1,1 +1,1 @@
-export const apiKey = "<fake-key>"
+export const apiKey = "AIzaSyBL8tIfwZMKS9Pc8jTAtPJ2h1kId7hglts"
