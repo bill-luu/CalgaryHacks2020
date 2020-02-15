@@ -1,7 +1,7 @@
 import _ from "lodash";
 import React from "react";
 import GoogleMapReact from 'google-map-react';
-import { apiKey } from './constants'
+import { apiKey } from './api'
 
 const test = {
   positions: [
