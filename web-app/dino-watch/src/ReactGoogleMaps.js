@@ -7,6 +7,7 @@ import {
   GoogleMap,
   Marker
 } from "react-google-maps";
+import { apiKey } from './constants'
 //import GitHubForkRibbon from "react-github-fork-ribbon";
 //import Header from "../../Header";
 const heatmapData = [
@@ -25,31 +26,31 @@ const heatmapData = [
   // new google.maps.LatLng(51.100031, -114.437),
   // new google.maps.LatLng(51.100031, -114.435)
   {positions:{
-    lat: 51.08,
-    long: -114.4
+    lat: 51.079998,
+    long: -114.130587
   }},
   {positions:{
-    lat: 51.08,
-    long: -114.4
+    lat: 51.079998,
+    long: -114.130587
   }},
   {positions:{
-    lat: 51.08,
-    long: -114.4
+    lat: 51.079998,
+    long: -114.130587
   }},
   {positions:{
-    lat: 51.08,
-    long: -114.4
+    lat: 51.079998,
+    long: -114.130587
   }},
   {positions:{
-    lat: 51.08,
-    long: -114.4
+    lat: 51.079998,
+    long: -114.130587
   }}
 ];
 
 const MyMapComponent = compose(
   withProps({
     googleMapURL:
-      "https://maps.googleapis.com/maps/api/js?key=AIzaSyB6yNEXJZdy4DsCLxfddmvIEoqlpJn7EkE&v=3.exp&libraries=geometry,drawing,places,visualization",
+      "https://maps.googleapis.com/maps/api/js?key=" + apiKey + "&v=3.exp&libraries=geometry,drawing,places,visualization",
     loadingElement: <div style={{ height: `100%` }} />,
     containerElement: <div style={{ height: `400px` }} />,
     mapElement: <div style={{ height: `100%` }} />
@@ -57,9 +58,9 @@ const MyMapComponent = compose(
   withScriptjs,
   withGoogleMap
 )(props => (
-  <GoogleMap defaultZoom={20} defaultCenter={{ lat: 51.080031, lng: -114.130533}} heatmapLibrary={true}
+  <GoogleMap defaultZoom={20} defaultCenter={{ lat: 51.079998, lng: -114.130587}} heatmapLibrary={true}
     heatmap={{heatmapData}}>
-    <Marker position={{ lat: 51.080031, lng: -114.130533 }} />
+    <Marker position={{ lat: 51.08, lng: -114.130587 }} />
   </GoogleMap>
 ));
 
