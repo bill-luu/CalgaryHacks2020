@@ -30,10 +30,9 @@ function App() {
           <Typography variant="title">
             <img src={dino} alt='U of C Dino Logo' height={60} />
           </Typography>
-          <Typography variant="h5" className={classes.title}>
+          <Typography id="title" variant="h5" className={classes.title}>
             Dino-Watch
           </Typography>
-          <Button color="inherit">Add foot traffic</Button>
         </Toolbar>
       </AppBar>
       <ReactGoogleMaps> </ReactGoogleMaps>
