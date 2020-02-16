@@ -31,8 +31,8 @@ class MyMapComponent extends React.Component {
     if (this._googleMap !== undefined) {
       const point = new google.maps.LatLng(lat, lng)
       this._googleMap.heatmap.data.push(point)
+      this.canSendHeat = false;
     }
-    this.canSendHeat = false;
   }
 
   setHeatFlag() {
