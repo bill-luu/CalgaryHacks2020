@@ -1,1 +1,2 @@
-export const apiKey = "<your-key>"
+export const mapsApiKey = "<your-key>"
+export const firebaseApiKey = "<your-key>"
