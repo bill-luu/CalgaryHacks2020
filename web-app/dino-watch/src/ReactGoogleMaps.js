@@ -42,23 +42,25 @@ class MyMapComponent extends React.Component {
   }
 
   componentDidMount() {
-    
+
     this.props.firebase.hotLocations().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
           const point = new google.maps.LatLng(doc.data().lat, doc.data().lng)
           this._googleMap.heatmap.data.push(point)
-         
+
       });
     }).then(() => {
       var currentTime = new Date();
-      console.log(currentTime.getHours())
-      if(currentTime.getHours() >= 9 && currentTime.getHours() <= 16) {
-        const scienceBPoint1 = new google.maps.LatLng({lat: 51.078750, lng: -114.129242})
-        const scienceBPoint2 = new google.maps.LatLng({lat: 51.078986, lng: -114.129894})
-        const scienceBPoint3 = new google.maps.LatLng({lat: 51.078986, lng: -114.129894})
-        const scienceBPoint4 = new google.maps.LatLng({lat: 51.078986, lng: -114.129894})
-        const scienceBPoint5 = new google.maps.LatLng({lat: 51.078986, lng: -114.129894})
-          
+      // If day is Sat && time is after 9am, or if day is Sun && time is before 4pm (6pm in case demos go long)
+      if( ((currentTime.getDay() == 7) && (currentTime.getHours() >= 9 && currentTime.getHours() <= 24))
+          ||
+          ((currentTime.getDay() == 0) && (currentTime.getHours() >= 0 && currentTime.getHours() <= 16))) {
+        const MacHallPoint1 = new google.maps.LatLng({lat: 51.078418, lng: -114.131066})
+        const MacHallPoint2 = new google.maps.LatLng({lat: 51.078418, lng: -114.131065})
+        const MacHallPoint3 = new google.maps.LatLng({lat: 51.078418, lng: -114.131066})
+        const MacHallPoint4 = new google.maps.LatLng({lat: 51.078415, lng: -114.131066})
+        const MacHallPoint5 = new google.maps.LatLng({lat: 51.078415, lng: -114.131069})
+
         const mathSciencePoint1 = new google.maps.LatLng({lat: 51.079960, lng: -114.127964})
         const mathSciencePoint2 = new google.maps.LatLng({lat: 51.079960, lng: -114.127964})
         const mathSciencePoint3 = new google.maps.LatLng({lat: 51.079960, lng: -114.127964})
@@ -68,12 +70,12 @@ class MyMapComponent extends React.Component {
         const ICTPoint2 = new google.maps.LatLng({lat: 51.079995, lng: -114.129836})
         const ICTPoint3 = new google.maps.LatLng({lat: 51.079996, lng: -114.129836})
         const ICTPoint4 = new google.maps.LatLng({lat: 51.079995, lng: -114.129833})
-        
-        this._googleMap.heatmap.data.push(scienceBPoint1)
-        this._googleMap.heatmap.data.push(scienceBPoint2)
-        this._googleMap.heatmap.data.push(scienceBPoint3)
-        this._googleMap.heatmap.data.push(scienceBPoint4)
-        this._googleMap.heatmap.data.push(scienceBPoint5)
+
+        this._googleMap.heatmap.data.push(MacHallPoint1)
+        this._googleMap.heatmap.data.push(MacHallPoint2)
+        this._googleMap.heatmap.data.push(MacHallPoint3)
+        this._googleMap.heatmap.data.push(MacHallPoint4)
+        this._googleMap.heatmap.data.push(MacHallPoint5)
         this._googleMap.heatmap.data.push(mathSciencePoint1)
         this._googleMap.heatmap.data.push(mathSciencePoint2)
         this._googleMap.heatmap.data.push(mathSciencePoint3)
