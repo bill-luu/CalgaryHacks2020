@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap');
+
 .App {
   text-align: center;
 }
@@ -5,6 +7,10 @@
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+* {
+  font-family: 'Roboto Condensed', sans-serif;
 }
 
 @media (prefers-reduced-motion: no-preference) {
