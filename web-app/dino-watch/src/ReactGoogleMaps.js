@@ -51,7 +51,7 @@ class MyMapComponent extends React.Component {
   }
 
   componentDidMount() {
-    this.props.firebase.hotLocations().then((querySnapshot) => {
+    this.props.firebase.hotLocations().get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
           const point = new google.maps.LatLng(doc.data().lat, doc.data().lng)
           // Check timestamp of each doc against current time
@@ -60,13 +60,23 @@ class MyMapComponent extends React.Component {
           // If ts > 15min, delete doc from db
           if (now - timestamp > 900) {
             const id = doc.id
-            this.props.firebase.db.collection("hotLocations").doc(id.toString()).delete() // Delete document
+            this.props.firebase.hotLocations().doc(id.toString()).delete() // Delete document
           }
           else {
             this._googleMap.heatmap.data.push(point)
           }
       });
+
+      this.props.firebase.hotLocations().onSnapshot((querySnapshot) => {
+        let newData = []
+        querySnapshot.forEach((doc) => {
+          const point = new google.maps.LatLng(doc.data().lat, doc.data().lng)
+          newData.push(point)
+        })
+        this._googleMap.heatmap.setData(newData)
+      })
     });
+
   }
 
   render() {

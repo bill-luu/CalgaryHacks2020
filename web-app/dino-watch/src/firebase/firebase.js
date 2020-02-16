@@ -19,7 +19,7 @@ class Firebase {
         this.db = app.firestore();
     }
 
-    hotLocations = () => this.db.collection("hotLocations").get();
+    hotLocations = () => this.db.collection("hotLocations");
 }
 
 export default Firebase;
