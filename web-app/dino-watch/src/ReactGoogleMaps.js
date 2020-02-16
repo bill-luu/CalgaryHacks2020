@@ -31,8 +31,17 @@ class MyMapComponent extends React.Component {
     }
 
     if (this._googleMap !== undefined) {
-      const point = new google.maps.LatLng(lat, lng)
-      this._googleMap.heatmap.data.push(point)
+      // Push to client heat map
+      const point = new google.maps.LatLng(lat, lng);
+      this._googleMap.heatmap.data.push(point);
+
+      // Push data to db
+        let document = {
+          lat: lat,
+          lng: lng,
+          timestamp: Math.round((new Date()).getTime() / 1000),
+        }
+      this.props.firebase.db.collection("hotLocations").add(document);
       this.canSendHeat = false;
     }
   }
