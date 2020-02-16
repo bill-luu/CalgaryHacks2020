@@ -1,8 +1,10 @@
 import _ from "lodash";
 import React from "react";
 import GoogleMapReact from 'google-map-react';
-import { apiKey } from './api'
 import Button from '@material-ui/core/Button';
+import { mapsApiKey } from './api'
+import { withFirebase, FirebaseContext } from './firebase';
+
 /* global google */
 
 class MyMapComponent extends React.Component {
@@ -38,6 +40,14 @@ class MyMapComponent extends React.Component {
   setHeatFlag() {
     this.canSendHeat = true;
   }
+  componentDidMount() {
+    this.props.firebase.hotLocations().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+          const point = new google.maps.LatLng(doc.data().lat, doc.data().lng)
+          this._googleMap.heatmap.data.push(point)
+      });
+    });
+  }
 
   render() {
     return (
@@ -45,7 +55,7 @@ class MyMapComponent extends React.Component {
       <Button onClick={() => this.setHeatFlag()}>Add foot traffic</Button>
       <GoogleMapReact
         ref={(el) => this._googleMap = el}
-        bootstrapURLKeys={{ key: apiKey }}
+        bootstrapURLKeys={{ key: mapsApiKey }}
         defaultCenter={{ lat: 51.07800, lng: -114.132148 }}
         defaultZoom={16}
         heatmapLibrary={true}
@@ -60,7 +70,10 @@ class MyMapComponent extends React.Component {
 const enhance = _.identity;
 
 const ReactGoogleMaps = () => [
-  <MyMapComponent key="map" />
+  <FirebaseContext.Consumer>
+    {firebase => <MyMapComponent key="map" firebase={firebase} />}
+  </FirebaseContext.Consumer>
+
 ];
 
-export default enhance(ReactGoogleMaps);
+export default withFirebase(enhance(ReactGoogleMaps));
