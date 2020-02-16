@@ -49,11 +49,22 @@ class MyMapComponent extends React.Component {
   setHeatFlag() {
     this.canSendHeat = true;
   }
+
   componentDidMount() {
     this.props.firebase.hotLocations().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
           const point = new google.maps.LatLng(doc.data().lat, doc.data().lng)
-          this._googleMap.heatmap.data.push(point)
+          // Check timestamp of each doc against current time
+          let timestamp = doc.data().timestamp
+          let now = Math.round((new Date()).getTime() / 1000)
+          // If ts > 15min, delete doc from db
+          if (now - timestamp > 900) {
+            const id = doc.id
+            this.props.firebase.db.collection("hotLocations").doc(id.toString()).delete() // Delete document
+          }
+          else {
+            this._googleMap.heatmap.data.push(point)
+          }
       });
     });
   }
