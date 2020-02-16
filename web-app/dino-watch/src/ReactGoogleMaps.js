@@ -9,8 +9,10 @@ const test = {
     { lat: 51.079998, lng: -114.130587 },
   ],
   options: {
-    radius: 80,
-    opacity: 0.6
+    radius: 60,
+    opacity: 0.5,
+    maxIntensity: 5,
+    dissipating: true,
   }
 }
 
@@ -18,8 +20,8 @@ const MyMapComponent = () => (
   <div style={{ height: '100vh', width: '100%' }}>
     <GoogleMapReact
       bootstrapURLKeys={{ key: apiKey }}
-      defaultCenter={{ lat: 51.079998, lng: -114.130587}}
-      defaultZoom={20}
+      defaultCenter={{ lat: 51.078223, lng: -114.131692}}
+      defaultZoom={16}
       heatmapLibrary={true}
       heatmap={test}>
     </GoogleMapReact>
