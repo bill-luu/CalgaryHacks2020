@@ -8,8 +8,8 @@ import { withFirebase, FirebaseContext } from './firebase';
 /* global google */
 
 class MyMapComponent extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       heatMapData: {
         positions: [
@@ -65,18 +65,53 @@ class MyMapComponent extends React.Component {
           else {
             this._googleMap.heatmap.data.push(point)
           }
-      });
+        });
 
-      this.props.firebase.hotLocations().onSnapshot((querySnapshot) => {
-        let newData = []
-        querySnapshot.forEach((doc) => {
-          const point = new google.maps.LatLng(doc.data().lat, doc.data().lng)
-          newData.push(point)
+        this.props.firebase.hotLocations().onSnapshot((querySnapshot) => {
+          let newData = []
+          querySnapshot.forEach((doc) => {
+            const point = new google.maps.LatLng(doc.data().lat, doc.data().lng)
+            newData.push(point)
+          })
+          this._googleMap.heatmap.setData(newData)
+
+          var currentTime = new Date();
+          // If day is Sat && time is after 9am, or if day is Sun && time is before 4pm (6pm in case demos go long)
+          if( ((currentTime.getDay() === 7) && (currentTime.getHours() >= 9 && currentTime.getHours() <= 24))
+            || (currentTime.getDay() === 0) && (currentTime.getHours() >= 0 && currentTime.getHours() <= 16))
+          {
+              const MacHallPoint1 = new google.maps.LatLng({lat: 51.078418, lng: -114.131066})
+              const MacHallPoint2 = new google.maps.LatLng({lat: 51.078418, lng: -114.131065})
+              const MacHallPoint3 = new google.maps.LatLng({lat: 51.078418, lng: -114.131066})
+              const MacHallPoint4 = new google.maps.LatLng({lat: 51.078415, lng: -114.131066})
+              const MacHallPoint5 = new google.maps.LatLng({lat: 51.078415, lng: -114.131069})
+
+              const mathSciencePoint1 = new google.maps.LatLng({lat: 51.079960, lng: -114.127964})
+              const mathSciencePoint2 = new google.maps.LatLng({lat: 51.079960, lng: -114.127964})
+              const mathSciencePoint3 = new google.maps.LatLng({lat: 51.079960, lng: -114.127964})
+              const mathSciencePoint4 = new google.maps.LatLng({lat: 51.079960, lng: -114.127964})
+
+              const ICTPoint1 = new google.maps.LatLng({lat: 51.079994, lng: -114.129836})
+              const ICTPoint2 = new google.maps.LatLng({lat: 51.079995, lng: -114.129836})
+              const ICTPoint3 = new google.maps.LatLng({lat: 51.079996, lng: -114.129836})
+              const ICTPoint4 = new google.maps.LatLng({lat: 51.079995, lng: -114.129833})
+
+              this._googleMap.heatmap.data.push(MacHallPoint1)
+              this._googleMap.heatmap.data.push(MacHallPoint2)
+              this._googleMap.heatmap.data.push(MacHallPoint3)
+              this._googleMap.heatmap.data.push(MacHallPoint4)
+              this._googleMap.heatmap.data.push(MacHallPoint5)
+              this._googleMap.heatmap.data.push(mathSciencePoint1)
+              this._googleMap.heatmap.data.push(mathSciencePoint2)
+              this._googleMap.heatmap.data.push(mathSciencePoint3)
+              this._googleMap.heatmap.data.push(mathSciencePoint4)
+              this._googleMap.heatmap.data.push(ICTPoint1)
+              this._googleMap.heatmap.data.push(ICTPoint2)
+              this._googleMap.heatmap.data.push(ICTPoint3)
+              this._googleMap.heatmap.data.push(ICTPoint4)
+          }
         })
-        this._googleMap.heatmap.setData(newData)
-      })
-    });
-
+      });
   }
 
   render() {
